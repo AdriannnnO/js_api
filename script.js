@@ -19,23 +19,31 @@ formularzyk.addEventListener("submit", (event) => {
     const image = document.getElementById("flag")
     const capital = document.getElementById("capital")
 
-    
-    console.log(jaki_kraj);
+    divek = document.getElementById("krajinfo")
+    divek.setAttribute('class','jds')
+
+    foundpe = document.getElementById("found")
+
+    let contry_found = false
 
     fetch(apisko)
         .then(response => response.json())
         .then(data => {
             console.log(data);
             for (let i = 0; i < data.length; i++) {
-                // if (data[i].name.inlcudes(jaki_kraj)){
-                    if (Object.values(data[i].name).includes(jaki_kraj)){
-                    console.log("jd")
+                if (Object.values(data[i].name).includes(jaki_kraj)){
                     divek = document.getElementById("krajinfo")
                     divek.setAttribute('class','none')
                     kraj.textContent = jaki_kraj
                     image.src = data[i].flags.png
                     capital.textContent=data[i].capital
+                    foundpe.textContent=''
+                    contry_found=true;
                 }
+            if (contry_found == false){
+                foundpe.textContent='Country not found'
+            }
+                
             }
         });
 });
